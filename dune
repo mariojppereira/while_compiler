@@ -5,6 +5,6 @@
  (modules parser))
 
 (executable
- (name while_compiler)
+ (public_name while_compiler)
  (promote (until-clean))
  (flags ()))

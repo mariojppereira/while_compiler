@@ -4,6 +4,8 @@
 
 (name while_compiler)
 
+(version 0.1)
+
 (generate_opam_files true)
 
 (source
@@ -11,11 +13,9 @@
 
 (authors "Mário Pereira <mjp.pereira@fct.unl.pt>")
 
-(maintainers "Mário Pereira <mjp.pereira@fct.unl.pt>>")
+(maintainers "Mário Pereira <mjp.pereira@fct.unl.pt>")
 
 (license MIT)
-
-(documentation https://url/to/documentation)
 
 (package
  (name while_compiler)
