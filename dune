@@ -1,0 +1,10 @@
+(ocamllex
+ (modules lexer))
+
+(menhir
+ (modules parser))
+
+(executable
+ (name while_compiler)
+ (promote (until-clean))
+ (flags ()))
