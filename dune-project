@@ -7,7 +7,7 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github mariojppereira/while_compiler))
 
 (authors "Mário Pereira <mjp.pereira@fct.unl.pt>")
 
