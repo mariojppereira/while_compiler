@@ -85,12 +85,15 @@ let rec compile_expr (e: Ast.texpr) =
       compile_expr e1 ++ pushq (reg rdi) ++
       compile_expr e2 ++ movq (reg rdi) (reg rsi) ++
       popq rdi ++
-      (match op with
+      begin match op with
        | Badd -> addq (reg rsi) (reg rdi)
        | Bsub -> subq (reg rsi) (reg rdi)
        | Bmul -> imulq (reg rsi) (reg rdi)
-       | Bdiv -> assert false (* TODO *)
-       | Bmod -> assert false (* TODO *))
+       | Bdiv -> movq (reg rdi) (reg rax) ++ cqto ++
+                 idivq (reg rsi) ++ movq (reg rax) (reg rdi)
+       | Bmod -> movq (reg rdi) (reg rax) ++ cqto ++
+                 idivq (reg rsi) ++ movq (reg rdx) (reg rdi)
+      end
 
 let rec compile_stmt (s: Ast.tstmt) =
   match s with

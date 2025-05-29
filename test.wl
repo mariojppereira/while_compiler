@@ -2,7 +2,7 @@ x := 10;
 
 while (x) {
   print(x);
-  x := x - 1
+  x := x / 2
 };
 
 if (x) { print(73) }
