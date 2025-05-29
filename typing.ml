@@ -1,4 +1,3 @@
-
 open Ast
 module H = Hashtbl
 
@@ -60,7 +59,6 @@ let rec alloc_vars (ctx: var_ctx) (s: Ast.stmt) =
 
 let file ?debug:(b=false) (p: Ast.file) : Ast.tfile =
   debug := b;
-  (* type-check declared functions *)
   let ctx = H.create 16 in
   alloc_vars ctx p;
   stmt ctx p
