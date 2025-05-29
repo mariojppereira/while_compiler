@@ -81,6 +81,15 @@ let rec compile_expr (e: Ast.texpr) =
   match e with
   | TEcst n -> movq (imm n) (reg rdi)
   | TEvar {var_ofs = ofs; _} -> movq (ind ~ofs rbp) (reg rdi)
+  | TEbinop (Badd, e, TEcst 1) | TEbinop (Badd, TEcst 1, e)  ->
+      compile_expr e ++
+      incq (reg rdi)
+  | TEbinop (Badd, TEvar y, TEvar x) when y == x ->
+      movq (ind ~ofs:y.var_ofs rbp) (reg rdi) ++
+      shlq (imm 2) (reg rdi)
+  | TEbinop (Bsub, e, TEcst 1) ->
+      compile_expr e ++
+      decq (reg rdi)
   | TEbinop (op, e1, e2) ->
       compile_expr e1 ++ pushq (reg rdi) ++
       compile_expr e2 ++ movq (reg rdi) (reg rsi) ++

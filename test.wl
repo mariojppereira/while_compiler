@@ -1,10 +1,10 @@
-x := 0;
-y := 10;
+x := 2;
 
-while (y-x+1) {
-  print(x);
-  x := x + 1
-};
-
-if (x) { print(73) }
-else { print(42) }
+if (x) {
+  y := x * 8;
+  print(y)
+}
+else {
+  w := x + 1;
+  print(w)
+}
