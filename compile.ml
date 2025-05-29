@@ -114,12 +114,11 @@ let rec compile_stmt (s: Ast.tstmt) =
       compile_stmt s2
   | TSwhile (e, s) ->
       let l_start = new_label () and l_end = new_label () in
-      compile_expr e ++
       label l_start ++
+      compile_expr e ++
       testq (reg rdi) (reg rdi) ++
       jz l_end ++
       compile_stmt s ++
-      compile_expr e ++
       jmp l_start ++
       label l_end
   | TSprint e ->
@@ -143,7 +142,7 @@ let file ?debug:(b=false) (f: Ast.tfile) : X86_64.program =
     if env.nb_total = 0 then nop
     else subq (imm (8 * env.nb_total)) (reg rsp) in
   let cfile = enter ++ locals ++ compile_stmt f ++
-    xorq (reg rax) (reg rax) in
-  { text = globl "main" ++ label "main" ++ cfile ++ leave ++
+              xorq (reg rax) (reg rax) ++ leave in
+  { text = globl "main" ++ label "main" ++ cfile ++
            inline inline_text;
     data = inline inline_data }
